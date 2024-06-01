@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Diary from './screen/Diary';
 
 function App() {
@@ -10,34 +10,10 @@ function App() {
     }
   };
 
-  const [entries, setEntries] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const addEntry = (entry) => {
-    setEntries([...entries, entry]);
-    setCurrentPage(entries.length);
-  };
-
-  const nextPage = () => {
-    if (currentPage < entries.length) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
 
   return (
     <div style={styles.app}>
       <Diary
-        entries={entries}
-        addEntry={addEntry}
-        currentPage={currentPage}
-        nextPage={nextPage}
-        prevPage={prevPage}
       />
     </div>
   );
