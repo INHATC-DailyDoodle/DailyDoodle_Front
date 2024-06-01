@@ -7,41 +7,6 @@ const Diary = () => {
       height: '100vh',
       backgroundColor: '#F8F8F0' // Ivory color
     },
-    navBar: {
-      width: '200px',
-      backgroundColor: 'rgba(255, 182, 193, 0.8)', // Light pink with transparency
-      padding: '20px',
-      boxShadow: '2px 0 5px rgba(0, 0, 0, 0.1)',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center'
-    },
-    navBarHeader: {
-      color: '#FFF',
-      fontSize: '1.5em',
-      marginBottom: '20px'
-    },
-    navBarList: {
-      listStyleType: 'none',
-      padding: '0',
-      width: '100%'
-    },
-    navBarItem: {
-      margin: '15px 0',
-      color: '#FFF',
-      cursor: 'pointer',
-      display: 'flex',
-      alignItems: 'center',
-      padding: '10px',
-      borderRadius: '5px',
-      transition: 'background-color 0.3s ease',
-    },
-    navBarItemHover: {
-      backgroundColor: 'rgba(255, 182, 193, 1)',
-    },
-    icon: {
-      marginRight: '10px'
-    },
     diaryEditor: {
       flex: 1,
       display: 'flex',
@@ -80,13 +45,6 @@ const Diary = () => {
     buttonHover: {
       backgroundColor: 'rgba(255, 182, 193, 1)'
     },
-    userName: {
-      marginTop: 'auto',
-      marginBottom: '20px',
-      color: '#FFF',
-      fontSize: '1em',
-      textAlign: 'center'
-    },
     musicRecommendation: {
       width: '730px', // Adjust width
       height: '640px', // Adjust height
@@ -109,46 +67,12 @@ const Diary = () => {
 
   return (
     <div style={styles.app}>
-      <div style={styles.navBar}>
-        <h2 style={styles.navBarHeader}>Daily Doodle</h2>
-        <ul style={styles.navBarList}>
-          <li style={styles.navBarItem} 
-            onMouseEnter={(e) => e.target.style.backgroundColor = styles.navBarItemHover.backgroundColor} 
-            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
-            <span style={styles.icon}>🏠</span>
-            Home
-          </li>
-          <li style={styles.navBarItem} 
-            onMouseEnter={(e) => e.target.style.backgroundColor = styles.navBarItemHover.backgroundColor} 
-            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
-            <span style={styles.icon}>📄</span>
-            My Diary
-          </li>
-          <li style={styles.navBarItem} 
-            onMouseEnter={(e) => e.target.style.backgroundColor = styles.navBarItemHover.backgroundColor} 
-            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
-            <span style={styles.icon}>🎵</span>
-            Songs
-          </li>
-          <li style={styles.navBarItem} 
-            onMouseEnter={(e) => e.target.style.backgroundColor = styles.navBarItemHover.backgroundColor} 
-            onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
-            <span style={styles.icon}>🔒</span>
-            Logout
-          </li>
-        </ul>
-        <div style={styles.userName}>
-          <span style={styles.icon}>👤</span>
-          {/* Replace 'User Name' with the actual user's name dynamically */}
-          testuser
-        </div>
-      </div>
       <div style={styles.diaryEditor}>
         <textarea style={styles.textArea} placeholder="오늘 당신의 하루는 어땠나요?"></textarea>
         <button style={styles.button} 
           onMouseEnter={(e) => e.target.style.backgroundColor = styles.buttonHover.backgroundColor} 
           onMouseLeave={(e) => e.target.style.backgroundColor = styles.button.backgroundColor}>
-          Submit
+            Submit
         </button>
       </div>
       <div style={styles.musicRecommendation}>
