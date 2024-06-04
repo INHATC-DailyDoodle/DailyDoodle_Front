@@ -71,9 +71,11 @@ const NavBar = () => {
             Songs
           </Link>
         </li>
-        <li style={styles.navBarItem}>
+        <li>
+        <Link to="/login" style={styles.navBarItem}>
           <span style={styles.icon}>🔒</span>
-          Logout
+          Login
+        </Link>
         </li>
       </ul>
       <div style={styles.userName}>
