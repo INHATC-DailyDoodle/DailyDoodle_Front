@@ -1,101 +1,98 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+const MainPage = () => {
   const handleSpotifyLogin = () => {
     window.location.href = 'http://localhost:8000/api/spotify-login/';
   };
+  const doodleImage = require('../../src/imgs/dailyDoodle로고.png'); // 이미지 경로 조정
 
   const styles = {
     app: {
       display: 'flex',
       height: '100vh',
-      backgroundColor: '#F8F8F0', // Ivory color
+      background: 'linear-gradient(135deg, #445AF5 0%, #8ec5fc 100%)', // 원래 그라데이션 색 유지
       justifyContent: 'center',
       alignItems: 'center',
-      width: '100vw', // Full width
-      padding: '0 20px' // Padding to avoid touching the edges
-    },
-    loginBox: {
-      backgroundColor: 'rgba(230, 230, 250, 0.9)', 
-      padding: '60px',  // Increase padding
-      borderRadius: '15px',  // Increase border-radius
-      boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.2)',  // Increase box-shadow
       textAlign: 'center',
-      width: '100%', // Use full width available
-      maxWidth: '450px' // Limit the max width
+      fontFamily: 'Arial, sans-serif',
+      color: '#333',
+      width: '100vw',
     },
-    input: {
-      width: '80%',
-      padding: '15px',  // Increase padding
-      margin: '15px 0',  // Increase margin
-      border: 'none',
-      borderRadius: '10px',  // Increase border-radius
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+    header: {
+      fontSize: '50px',
+      fontWeight: 'bold',
+      marginBottom: '5px',
+      color: '#4B0082', // 인디고 색
+    },
+    subheader: {
+      fontSize: '30px',
+      marginBottom: '40px',
+      color: '#8A2BE2', // 블루 바이올렛 색
     },
     button: {
-      padding: '15px 30px',  // Increase padding
+      padding: '15px 30px',
       border: 'none',
-      borderRadius: '10px',  // Increase border-radius
-      backgroundColor: 'rgba(255, 182, 193, 0.8)', 
+      borderRadius: '10px',
+      backgroundColor: '#4C3AED', // 스포티파이 그린
       color: '#FFF',
       cursor: 'pointer',
-      fontSize: '18px',  // Increase font-size
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Increase box-shadow
+      fontSize: '25px',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
       transition: 'background-color 0.3s ease',
-      marginTop: '30px'  // Increase margin
+      marginTop: '20px',
+      marginLeft: '200px', // 버튼과 이미지 사이 간격 추가
     },
     buttonHover: {
-      backgroundColor: 'rgba(255, 182, 193, 1)'
+      backgroundColor: '#6243EC', // 약간 밝은 그린 색
     },
-    spotifyButton: {
-      marginTop: '20px',  // Add some margin to separate from other buttons
-      backgroundColor: '#1DB954',  // Spotify green
-      color: '#FFF',
-      padding: '15px 30px',  // Increase padding
-      border: 'none',
-      borderRadius: '10px',  // Increase border-radius
-      cursor: 'pointer',
-      fontSize: '18px',  // Increase font-size
-      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Increase box-shadow
-      transition: 'background-color 0.3s ease'
+    illustration: {
+      width: '90%',
+      maxWidth: '400px', // 크기 조정
+      margin: '10px 0',
+      borderRadius: '15px',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', // 그림자 추가
     },
-    spotifyButtonHover: {
-      backgroundColor: '#1ED760'  // Slightly lighter green for hover effect
-    }
+    content: {
+      backgroundColor: 'rgba(255, 255, 255, 0.5)', // 반투명 흰색 배경
+      borderRadius: '15px',
+      padding: '40px', // 패딩 증가
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+      width: '90%', // 너비 증가
+      maxWidth: '1200px', // 최대 너비 증가
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
   };
 
   return (
     <div style={styles.app}>
-      <div style={styles.loginBox}>
-        <h2>Login</h2>
-        <input 
-          style={styles.input}
-          type="email" 
-          placeholder="Email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
-        />
-        <input 
-          style={styles.input}
-          type="password" 
-          placeholder="Password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-        />
-        <button 
-          style={styles.button} 
-          onMouseEnter={(e) => e.target.style.backgroundColor = styles.buttonHover.backgroundColor} 
-          onMouseLeave={(e) => e.target.style.backgroundColor = styles.button.backgroundColor} 
-          onClick={handleSpotifyLogin}
-        >
-          Login with Spotify
-        </button>
+      <div style={styles.content}>
+        <h1 style={styles.header}>Welcome to Doodle Daily</h1>
+        <h2 style={styles.subheader}>Your emotions, your music</h2>
+        <div style={styles.row}>
+          <img 
+            src={doodleImage}
+            alt="Doodle Daily Illustration" 
+            style={styles.illustration} 
+          />
+          <button
+            style={styles.button}
+            onMouseEnter={(e) => e.target.style.backgroundColor = styles.buttonHover.backgroundColor}
+            onMouseLeave={(e) => e.target.style.backgroundColor = styles.button.backgroundColor}
+            onClick={handleSpotifyLogin}
+          >
+            Login with Spotify
+          </button>
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default Login;
+export default MainPage;
