@@ -5,7 +5,7 @@ import Diary from './screen/Diary';
 import MyDiary from './screen/MyDiary';
 import Songs from './screen/Songs';
 import NavBar from './component/NavBar';
-
+import Login from './screen/Login';
 function App() {
   const styles = {
     app: {
@@ -24,6 +24,7 @@ function App() {
           <Route path="/" element={<Diary />} />
           <Route path="/my-diary" element={<MyDiary />} />
           <Route path="/songs" element={<Songs />} />
+          <Route path="/Login" element={<Login />} />
         </Routes>
       </div>
     </Router>
