@@ -7,7 +7,7 @@ import MyDiary from './screen/MyDiary';
 import Songs from './screen/Songs';
 import NavBar from './component/NavBar';
 import Login from './screen/Login';
-import SignUp from './screen/SignUp';
+//import SignUp from './screen/SignUp';
 
 function App() {
   const styles = {
