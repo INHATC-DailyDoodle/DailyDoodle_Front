@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // useHistory 대신 useNavigate 사용
+import axios from 'axios'; // Axios 라이브러리 import
 
 const NavBar = () => {
   const styles = {
@@ -49,6 +50,32 @@ const NavBar = () => {
     }
   };
 
+  const [userName, setUserName] = useState('');
+  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수 가져오기
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // 토큰이 있으면 Spotify API를 호출하여 사용자 정보 가져오기
+      axios.get('https://api.spotify.com/v1/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        setUserName(response.data.display_name); // Spotify 닉네임으로 설정
+      })
+      .catch(error => {
+        console.error('Error fetching user info:', error);
+      });
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // 토큰 제거
+    navigate('/login'); // 로그인 페이지로 이동
+  };
+
   return (
     <div style={styles.navBar}>
       <h2 style={styles.navBarHeader}>Daily Doodle</h2>
@@ -72,15 +99,15 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-        <Link to="/login" style={styles.navBarItem}>
-          <span style={styles.icon}>🔒</span>
-          Login
-        </Link>
+          <button onClick={handleLogout} style={styles.navBarItem}> {/* 로그아웃 버튼 */}
+            <span style={styles.icon}>🔒</span>
+            Logout
+          </button>
         </li>
       </ul>
       <div style={styles.userName}>
         <span style={styles.icon}>👤</span>
-        testuser
+        {userName}
       </div>
     </div>
   );
