@@ -26,7 +26,7 @@ const Diary = () => {
       }
 
       const data = await response.json();
-      setResult(data.result);
+      setResult(data.result);  // 결과 저장
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
@@ -36,7 +36,7 @@ const Diary = () => {
     app: {
       display: 'flex',
       height: '100vh',
-      backgroundColor: '#F8F8F0'
+      backgroundColor: '#F8F8F0' // Ivory color
     },
     diaryEditor: {
       flex: 1,
@@ -76,9 +76,27 @@ const Diary = () => {
     buttonHover: {
       backgroundColor: 'rgba(255, 182, 193, 1)'
     },
+    moodInput: {
+      width: '730px', 
+      height: '100px', 
+      backgroundColor: 'rgba(255, 255, 255, 0.7)', 
+      padding: '20px',
+      borderRadius: '10px',
+      boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.1)',
+      textAlign: 'center',
+      position: 'absolute',
+      right: '2%',
+      top: '20px', 
+      color: '#87CEEB',
+      fontSize: '1.5em',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
     musicRecommendation: {
       width: '730px', 
-      height: '640px', 
+      height: '480px', 
       backgroundColor: 'rgba(255, 255, 255, 0.7)', 
       padding: '20px',
       borderRadius: '10px',
@@ -114,10 +132,13 @@ const Diary = () => {
           Submit
         </button>
       </div>
+      <div style={styles.moodInput}>
+        <h3>지금 당신의 기분은?</h3>
+        {result && <h4>{result}</h4>} {/* 결과 표시 */}
+      </div>
       <div style={styles.musicRecommendation}>
         <h3>Music</h3>
         <p>여기에 노래 추천이 들어갈 곳이야.</p>
-        {result && <p>Result: {result}</p>}
       </div>
     </div>
   );
