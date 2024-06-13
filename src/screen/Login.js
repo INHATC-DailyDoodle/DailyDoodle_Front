@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const MainPage = () => {
   const handleSpotifyLogin = () => {
     window.location.href = 'http://localhost:8000/api/spotify-login/';
   };
   const doodleImage = require('../../src/imgs/dailyDoodle로고.png'); // 이미지 경로 조정
+
+  useEffect(() => {
+    // 쿠키에서 user_id 읽고 localStorage에 저장
+    const user_id = getCookie('user_id');
+    if (user_id) {
+      localStorage.setItem('user_id', user_id);
+    }
+  }, []);
+
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  };
 
   const styles = {
     app: {

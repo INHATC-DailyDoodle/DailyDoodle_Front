@@ -5,13 +5,20 @@ const Diary = () => {
   const [result, setResult] = useState(null);
 
   const handleSubmit = async () => {
+    const user_id = localStorage.getItem('user_id');
+
+    if (!user_id) {
+      console.error('User ID not found');
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:8000/api/diary/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ text, user_id }),
       });
 
       if (!response.ok) {
@@ -19,7 +26,7 @@ const Diary = () => {
       }
 
       const data = await response.json();
-      setResult(data.result);  // 결과 저장
+      setResult(data.result);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
     }
@@ -29,7 +36,7 @@ const Diary = () => {
     app: {
       display: 'flex',
       height: '100vh',
-      backgroundColor: '#F8F8F0' // Ivory color
+      backgroundColor: '#F8F8F0'
     },
     diaryEditor: {
       flex: 1,
@@ -110,7 +117,7 @@ const Diary = () => {
       <div style={styles.musicRecommendation}>
         <h3>Music</h3>
         <p>여기에 노래 추천이 들어갈 곳이야.</p>
-        {result && <p>Result: {result}</p>} {/* 결과 표시 */}
+        {result && <p>Result: {result}</p>}
       </div>
     </div>
   );
