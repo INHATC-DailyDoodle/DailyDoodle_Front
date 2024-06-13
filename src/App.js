@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, useLocation, useNavig
 
 import Diary from './screen/Diary';
 import MyDiary from './screen/MyDiary';
-import Songs from './screen/Songs';
+import Detail from './screen/Detail';
 import NavBar from './component/NavBar';
 import Login from './screen/Login';
 // import SignUp from './screen/SignUp';
@@ -45,8 +45,8 @@ function App() {
           element={isAuthenticated ? <MyDiary /> : <Navigate to="/login" />}
         />
         <Route
-          path="/songs"
-          element={isAuthenticated ? <Songs /> : <Navigate to="/login" />}
+          path="/detail"
+          element={isAuthenticated ? <Detail /> : <Navigate to="/login" />}
         />
         <Route
           path="*"

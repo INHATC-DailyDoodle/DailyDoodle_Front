@@ -105,9 +105,9 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/songs" style={styles.navBarItem}>
+          <Link to="/detail" style={styles.navBarItem}>
             <span style={styles.icon}>🎵</span>
-            Songs
+            Detail
           </Link>
         </li>
         <li>
