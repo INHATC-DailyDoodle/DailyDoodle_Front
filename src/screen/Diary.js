@@ -1,9 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Diary = () => {
   const [text, setText] = useState('');
   const [mood, setMood] = useState('');
   const [playlistUrl, setPlaylistUrl] = useState('');
+  const [playlistTracks, setPlaylistTracks] = useState([]);
+
+  useEffect(() => {
+    fetchRandomPlaylist();
+  }, []);
+
+  const fetchRandomPlaylist = async () => {
+    const user_id = localStorage.getItem('user_id');
+    if (!user_id) {
+      console.error('User ID not found');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8000/api/mood-playlists/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ mood }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      const playlists = data.items;
+      if (playlists && playlists.length > 0) {
+        const randomIndex = Math.floor(Math.random() * playlists.length);
+        const randomPlaylist = playlists[randomIndex];
+        setPlaylistUrl(randomPlaylist.external_urls.spotify);
+        fetchPlaylistTracks(randomPlaylist.id);
+      } else {
+        console.error('No playlists found or items is undefined');
+        setPlaylistUrl('');
+        setPlaylistTracks([]);
+      }
+    } catch (error) {
+      console.error('Error fetching playlists:', error);
+    }
+  };
+
+  const fetchPlaylistTracks = async (playlistId) => {
+    try {
+      const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      const tracks = data.items;
+      if (tracks && tracks.length > 0) {
+        setPlaylistTracks(tracks);
+      } else {
+        console.error('No tracks found in the playlist');
+        setPlaylistTracks([]);
+      }
+    } catch (error) {
+      console.error('Error fetching playlist tracks:', error);
+    }
+  };
 
   const handleSubmit = async () => {
     const user_id = localStorage.getItem('user_id');
@@ -27,38 +94,9 @@ const Diary = () => {
 
       const data = await response.json();
       setMood(data.result);
-      fetchPlaylists(data.result);
+      fetchRandomPlaylist();
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
-    }
-  };
-
-  const fetchPlaylists = async (mood) => {
-    try {
-      const response = await fetch('http://localhost:8000/api/mood-playlists/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ mood }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      const playlists = data.items;
-      if (playlists && playlists.length > 0) {
-        const randomIndex = Math.floor(Math.random() * playlists.length);
-        const randomPlaylist = playlists[randomIndex];
-        setPlaylistUrl(randomPlaylist.external_urls.spotify); // 랜덤으로 선택된 플레이리스트 URL 설정
-      } else {
-        console.error('No playlists found or items is undefined');
-        setPlaylistUrl('');
-      }
-    } catch (error) {
-      console.error('Error fetching playlists:', error);
     }
   };
 
