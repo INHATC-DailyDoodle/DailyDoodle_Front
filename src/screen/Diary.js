@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 const Diary = () => {
   const [text, setText] = useState('');
-  const [result, setResult] = useState(null);
+  const [mood, setMood] = useState('');
+  const [playlistUrl, setPlaylistUrl] = useState('');
 
   const handleSubmit = async () => {
     const user_id = localStorage.getItem('user_id');
-
     if (!user_id) {
       console.error('User ID not found');
       return;
@@ -26,9 +26,39 @@ const Diary = () => {
       }
 
       const data = await response.json();
-      setResult(data.result);  // 결과 저장
+      setMood(data.result);
+      fetchPlaylists(data.result);
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
+    }
+  };
+
+  const fetchPlaylists = async (mood) => {
+    try {
+      const response = await fetch('http://localhost:8000/api/mood-playlists/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ mood }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      const playlists = data.items;
+      if (playlists && playlists.length > 0) {
+        const randomIndex = Math.floor(Math.random() * playlists.length);
+        const randomPlaylist = playlists[randomIndex];
+        setPlaylistUrl(randomPlaylist.external_urls.spotify); // 랜덤으로 선택된 플레이리스트 URL 설정
+      } else {
+        console.error('No playlists found or items is undefined');
+        setPlaylistUrl('');
+      }
+    } catch (error) {
+      console.error('Error fetching playlists:', error);
     }
   };
 
@@ -36,7 +66,7 @@ const Diary = () => {
     app: {
       display: 'flex',
       height: '100vh',
-      backgroundColor: '#F8F8F0' // Ivory color
+      backgroundColor: '#F8F8F0'
     },
     diaryEditor: {
       flex: 1,
@@ -111,6 +141,12 @@ const Diary = () => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center'
+    },
+    iframe: {
+      borderRadius: '10px',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      width: '100%',
+      height: '80%'
     }
   };
 
@@ -134,11 +170,21 @@ const Diary = () => {
       </div>
       <div style={styles.moodInput}>
         <h3>지금 당신의 기분은?</h3>
-        {result && <h4>{result}</h4>} {/* 결과 표시 */}
+        {mood && <h4>{mood}</h4>}
       </div>
       <div style={styles.musicRecommendation}>
         <h3>Music</h3>
-        <p>여기에 노래 추천이 들어갈 곳이야.</p>
+        {playlistUrl && (
+          <iframe
+            src={`https://open.spotify.com/embed/playlist/${playlistUrl.split('/').pop()}`}
+            style={styles.iframe}
+            width="300"
+            height="380"
+            frameBorder="0"
+            allowtransparency="true"
+            allow="encrypted-media"
+          ></iframe>
+        )}
       </div>
     </div>
   );
