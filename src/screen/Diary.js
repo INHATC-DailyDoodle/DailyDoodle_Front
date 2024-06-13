@@ -15,8 +15,8 @@ const Diary = () => {
       justifyContent: 'center',
       backgroundColor: 'rgba(230, 230, 250, 0.6)', 
       padding: '20px',
-      position: 'relative' ,// Change here to relative
-      width:'400px'
+      position: 'relative', // Changed here to relative
+      width: '400px'
     },
     textArea: {
       width: '90%', 
@@ -45,9 +45,9 @@ const Diary = () => {
     buttonHover: {
       backgroundColor: 'rgba(255, 182, 193, 1)'
     },
-    musicRecommendation: {
+    moodInput: {
       width: '730px', // Adjust width
-      height: '640px', // Adjust height
+      height: '100px', // Height for mood input
       backgroundColor: 'rgba(255, 255, 255, 0.7)', // Light gray with transparency
       padding: '20px',
       borderRadius: '10px',
@@ -55,13 +55,43 @@ const Diary = () => {
       textAlign: 'center',
       position: 'absolute',
       right: '2%',
-      bottom: '20px', // Change top to bottom for more consistent placement
+      top: '20px', // Position at the top
       color: '#87CEEB',
       fontSize: '1.5em',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center'
+    },
+    musicRecommendation: {
+      width: '730px', // Adjust width
+      height: '480px', // Adjust height to be smaller
+      backgroundColor: 'rgba(255, 255, 255, 0.7)', // Light gray with transparency
+      padding: '20px',
+      borderRadius: '10px',
+      boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.1)',
+      textAlign: 'center',
+      position: 'absolute',
+      right: '2%',
+      bottom: '20px', // Changed top to bottom for more consistent placement
+      color: '#87CEEB',
+      fontSize: '1.5em',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    moodTextArea: {
+      width: '90%',
+      height: '60%',
+      padding: '10px',
+      border: 'none',
+      borderRadius: '5px',
+      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      fontSize: '16px',
+      lineHeight: '1.5',
+      resize: 'none'
     }
   };
 
@@ -74,6 +104,10 @@ const Diary = () => {
           onMouseLeave={(e) => e.target.style.backgroundColor = styles.button.backgroundColor}>
             Submit
         </button>
+      </div>
+      <div style={styles.moodInput}>
+        <h3>지금 당신의 기분은?</h3>
+        <h4>기쁨</h4>
       </div>
       <div style={styles.musicRecommendation}>
         <h3>Music</h3>

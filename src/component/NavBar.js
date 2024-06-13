@@ -47,6 +47,18 @@ const NavBar = () => {
       color: '#FFF',
       fontSize: '1em',
       textAlign: 'center'
+    },
+    button: {
+      border: 'none',
+      background: 'none',
+      width: '100%',
+      textAlign: 'left',
+      padding: '30',
+      cursor: 'pointer',
+      color: '#FFF',
+      fontSize:17,
+    
+      
     }
   };
 
@@ -99,7 +111,7 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <button onClick={handleLogout} style={styles.navBarItem}> {/* 로그아웃 버튼 */}
+          <button onClick={handleLogout} style={{...styles.navBarItem, ...styles.button}}> {/* 로그아웃 버튼 */}
             <span style={styles.icon}>🔒</span>
             Logout
           </button>
