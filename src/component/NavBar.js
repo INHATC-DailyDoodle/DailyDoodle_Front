@@ -105,12 +105,6 @@ const NavBar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/detail" style={styles.navBarItem}>
-            <span style={styles.icon}>🎵</span>
-            Detail
-          </Link>
-        </li>
-        <li>
           <button onClick={handleLogout} style={{...styles.navBarItem, ...styles.button}}> {/* 로그아웃 버튼 */}
             <span style={styles.icon}>🔒</span>
             Logout
